@@ -1,0 +1,746 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HomeWorkToDos.API</name>
+    </assembly>
+    <members>
+        <member name="T:HomeWorkToDos.API.Controllers.UserController">
+            <summary>
+            User Controller
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:HomeWorkToDos.API.Controllers.UserController._logger">
+            <summary>
+            The logger
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Controllers.UserController._jwtTokenConfig">
+            <summary>
+            The JWT token configuration
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Controllers.UserController._userService">
+            <summary>
+            The user service
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Controllers.UserController._mapper">
+            <summary>
+            The mapper
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.UserController.#ctor(Microsoft.Extensions.Logging.ILogger{HomeWorkToDos.API.Controllers.UserController},Microsoft.Extensions.Options.IOptions{HomeWorkToDos.Util.ConfigModels.JwtTokenConfig},HomeWorkToDos.Business.Contract.IUser,AutoMapper.IMapper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.Controllers.UserController"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="jwtTokenConfig">The JWT token configuration.</param>
+            <param name="userService">The user service.</param>
+            <param name="mapper">The mapper.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.UserController.Login(HomeWorkToDos.Util.Dtos.LoginDto)">
+            <summary>
+            Logins the user with credential and generates auth token.
+            </summary>
+            <param name="loginDto">The login model.</param>
+            <returns>ApiResponse on User Login</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.UserController.Register(HomeWorkToDos.Util.Dtos.RegisterUserDto)">
+            <summary>
+            Registers the specified user.
+            </summary>
+            <param name="user">The user.</param>
+            <returns>ApiResponse based on success/failure.</returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Controllers.v1.LabelController">
+            <summary>
+            Label Controller
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:HomeWorkToDos.API.Controllers.v1.LabelController._labelService">
+            <summary>
+            The label service
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Controllers.v1.LabelController._mapper">
+            <summary>
+            The mapper
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.LabelController.#ctor(HomeWorkToDos.Business.Contract.ILabel,AutoMapper.IMapper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.Controllers.v1.LabelController"/> class.
+            </summary>
+            <param name="labelService">The label service.</param>
+            <param name="mapper">The mapper.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.LabelController.GetAll(HomeWorkToDos.Util.Models.PaginationParameters)">
+            <summary>
+            Gets all label.
+            </summary>
+            <param name="parameters">The pagination parameters.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.LabelController.GetById(System.Int32)">
+            <summary>
+            Gets the label by identifier.
+            </summary>
+            <param name="labelId">The label identifier.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.LabelController.Add(HomeWorkToDos.Util.Dtos.CreateLabelDto,Microsoft.AspNetCore.Mvc.ApiVersion)">
+            <summary>
+            Adds the specified label.
+            </summary>
+            <param name="labelDto">The label.</param>
+            <param name="version">The version.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.LabelController.DeleteLabel(System.Int32)">
+            <summary>
+            Deletes the label.
+            </summary>
+            <param name="id">The label identifier.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Controllers.v1.ToDoItemController">
+            <summary>
+            ToDoItem Controller
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:HomeWorkToDos.API.Controllers.v1.ToDoItemController._itemService">
+            <summary>
+            The item service
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Controllers.v1.ToDoItemController._mapper">
+            <summary>
+            The mapper
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoItemController.#ctor(HomeWorkToDos.Business.Contract.IToDoItem,AutoMapper.IMapper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.Controllers.v1.ToDoItemController"/> class.
+            </summary>
+            <param name="itemService">The item service.</param>
+            <param name="mapper">The mapper.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoItemController.GetAll(HomeWorkToDos.Util.Models.PaginationParameters)">
+            <summary>
+            Get all todoItem for specific user.
+            </summary>
+            <param name="parameters">The pagination parameters.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoItemController.GetById(System.Int32)">
+            <summary>
+            Gets the todoItem by identifier.
+            </summary>
+            <param name="toDoItemId">To do item identifier.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoItemController.Add(HomeWorkToDos.Util.Dtos.CreateToDoItemDto,Microsoft.AspNetCore.Mvc.ApiVersion)">
+            <summary>
+            Adds the to do item specific to user.
+            </summary>
+            <param name="toDoItem">To do item.</param>
+            <param name="version">The version.</param>
+            <returns>
+            Returns Action Result type based on Success or Failure.
+            </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoItemController.Update(System.Int32,HomeWorkToDos.Util.Dtos.UpdateToDoItemDto)">
+            <summary>
+            Updates the to do item by specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="toDoItem">To do item.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoItemController.DeleteToDoItem(System.Int32)">
+            <summary>
+            Deletes to do item.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoItemController.Patch(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{HomeWorkToDos.Util.Dtos.UpdateToDoItemDto})">
+            <summary>
+            Patches the specified to do item identifier.
+            </summary>
+            <param name="toDoItemId">To do item identifier.</param>
+            <param name="toDoItemPatch">To do item patch.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Controllers.v1.ToDoListController">
+            <summary>
+            ToDoList Controller
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:HomeWorkToDos.API.Controllers.v1.ToDoListController._listService">
+            <summary>
+            The list service
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Controllers.v1.ToDoListController._mapper">
+            <summary>
+            The mapper
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoListController.#ctor(HomeWorkToDos.Business.Contract.IToDoList,AutoMapper.IMapper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.Controllers.v1.ToDoListController"/> class.
+            </summary>
+            <param name="listService">The list service.</param>
+            <param name="mapper">The mapper.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoListController.GetAll(HomeWorkToDos.Util.Models.PaginationParameters)">
+            <summary>
+            Gets all to do list by specific user.
+            </summary>
+            <param name="parameters">The pagination parameters.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoListController.GetById(System.Int32)">
+            <summary>
+            Gets the to do list by identifier.
+            </summary>
+            <param name="toDoListId">To do list identifier.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoListController.Add(HomeWorkToDos.Util.Dtos.CreateToDoListDto,Microsoft.AspNetCore.Mvc.ApiVersion)">
+            <summary>
+            Adds the specified to do list.
+            </summary>
+            <param name="createToDoList">The create to do list.</param>
+            <param name="version">The version.</param>
+            <returns>
+            Returns Action Result type based on Success or Failure.
+            </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoListController.Update(System.Int32,HomeWorkToDos.Util.Dtos.UpdateToDoListDto)">
+            <summary>
+            Updates the to do list by specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="listToUpdate">The list to update.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoListController.Delete(System.Int32)">
+            <summary>
+            Deletes the to do list by specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoListController.PatchToDoList(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{HomeWorkToDos.Util.Dtos.UpdateToDoListDto})">
+            <summary>
+            Patches to do list.
+            </summary>
+            <param name="toDoListId">To do list identifier.</param>
+            <param name="listToUpdatePatchDoc">The list to update patch document.</param>
+            <returns>Returns Action Result type based on Success or Failure.</returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.DependencyInjection.DIConfiguration">
+            <summary>
+            DI Configuration
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.DependencyInjection.DIConfiguration.RegisterDI(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">
+            <summary>
+            Registers the DI.
+            </summary>
+            <param name="services">The services.</param>
+            <param name="connectionString">The connection string.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Filter.CorrelationIdOperationFilter">
+            <summary>
+            Add CorrelationId header parameters.
+            </summary>
+            <seealso cref="T:Swashbuckle.AspNetCore.SwaggerGen.IOperationFilter" />
+        </member>
+        <member name="M:HomeWorkToDos.API.Filter.CorrelationIdOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Applies the specified operation.
+            </summary>
+            <param name="operation">The operation.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:HomeWorkToDos.API.Filter.ExampleSchemaFilter">
+            <summary>
+            Example Schema Filter
+            </summary>
+            <seealso cref="T:Swashbuckle.AspNetCore.SwaggerGen.ISchemaFilter" />
+        </member>
+        <member name="M:HomeWorkToDos.API.Filter.ExampleSchemaFilter.Apply(Microsoft.OpenApi.Models.OpenApiSchema,Swashbuckle.AspNetCore.SwaggerGen.SchemaFilterContext)">
+            <summary>
+            Applies the specified schema.
+            </summary>
+            <param name="schema">The schema.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Filter.ExampleSchemaFilter.GetExampleOrNullFor(System.Type)">
+            <summary>
+            Gets the example or null for.
+            </summary>
+            <param name="type">The type.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.GraphQL.Mutation">
+            <summary>
+            Mutation class for GraphQl.
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Mutation.AddLabel(HomeWorkToDos.Util.Dtos.CreateLabelDto)">
+            <summary>
+            Adds Label record
+            </summary>
+            <param name="createLabelDto"></param>
+            <returns> added ToDoList record. </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Mutation.DeleteLabel(System.Int32)">
+            <summary>
+            Delete Label record.
+            </summary>
+            <param name="id"></param>
+            <returns> 1 on successful deletion else throws argument exception. </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Mutation.AddToDoItem(HomeWorkToDos.Util.Dtos.CreateToDoItemDto)">
+            <summary>
+            Adds ToDoItem record
+            </summary>
+            <param name="createToDoItemDto"></param>
+            <returns> added ToDoList record. </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Mutation.UpdateToDoItem(HomeWorkToDos.Util.Dtos.UpdateToDoItemDto)">
+            <summary>
+            Update ToDoItem record
+            </summary>
+            <param name="updateToDoItemDto"></param>
+            <returns> Updated record. </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Mutation.DeleteToDoItem(System.Int32)">
+            <summary>
+            Delete ToDoItem record.
+            </summary>
+            <param name="id"></param>
+            <returns> 1 on successful deletion else throws argument exception. </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Mutation.AddToDoList(HomeWorkToDos.Util.Dtos.CreateToDoListDto)">
+            <summary>
+            Adds ToDoList record
+            </summary>
+            <param name="createToDoListDto"></param>
+            <returns> added ToDoList record. </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Mutation.UpdateToDoList(HomeWorkToDos.Util.Dtos.UpdateToDoListDto)">
+            <summary>
+            Update ToDoList record
+            </summary>
+            <param name="updateToDoListDto"></param>
+            <returns> Updated record. </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Mutation.DeleteToDoList(System.Int32)">
+            <summary>
+            Delete ToDoList record.
+            </summary>
+            <param name="id"></param>
+            <returns> 1 on successful deletion else throws argument exception. </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Mutation.AuthenticateUser(System.String,System.String)">
+            <summary>
+            Authenticate user.
+            </summary>
+            <param name="userName">Username.</param>
+            <param name="password">Password.</param>
+            <returns>Returns user id.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Mutation.RegisterUser(HomeWorkToDos.Util.Dtos.RegisterUserDto)">
+            <summary>
+            register user.
+            </summary>
+            <param name="userDto"></param>
+            <returns> success/failure result.</returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.GraphQL.Query">
+            <summary>
+            Query class for GraphQl.
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Query.GetAllLabels">
+            <summary>
+            Get labels.
+            </summary>
+            <returns>Returns labels.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Query.GetLabelById(System.Int32)">
+            <summary>
+            Get label by id.
+            </summary>
+            <param name="labelId">label id.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Query.GetAllToDoItems">
+            <summary>
+            Get ToDoItems.
+            </summary>
+            <returns>Returns ToDoItems.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Query.GetToDoItemById(System.Int32)">
+            <summary>
+            Get ToDoItem by id.
+            </summary>
+            <param name="toDoItemId">ToDoItem id.</param>        
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Query.GetAllToDoLists">
+            <summary>
+            Get ToDoLists.
+            </summary>
+            <returns>Returns ToDoLists.</returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Query.GetToDoListById(System.Int32)">
+            <summary>
+            Get ToDoList by id.
+            </summary>
+            <param name="toDoListId">ToDoList id.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Query.GetById">
+            <summary>
+            Get user by user id.
+            </summary>
+            <returns>Returns user details.</returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Handler.CorrelationIdDelegatingHandler">
+            <summary>
+            Implements method for forwarding CorrelationID in HttpRequestheader.
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Handler.CorrelationIdDelegatingHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Forwards CorrelationID in HttpRequestheader.
+            </summary>
+            <param name="request"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Mapper.MappingProfile">
+            <summary>
+            Mapping Profile
+            </summary>
+            <seealso cref="T:AutoMapper.Profile" />
+        </member>
+        <member name="T:HomeWorkToDos.API.Middleware.ContentLocationMiddleware">
+            <summary>
+            Content Location Middleware
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Middleware.ContentLocationMiddleware._next">
+            <summary>
+            The next
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.ContentLocationMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.Middleware.ContentLocationMiddleware"/> class.
+            </summary>
+            <param name="next">The next.</param>
+            <param name="loggerFactory">The logger factory.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.ContentLocationMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Process request.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>
+            Returns nothing.
+            </returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Middleware.ContentLocationMiddlewareExtensions">
+            <summary>
+            Extension of application builder for exception middleware.
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.ContentLocationMiddlewareExtensions.UseContentLocationMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configure Content-Location middleware.
+            </summary>
+            <param name="app">Application builder.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Middleware.ExceptionMiddleware">
+            <summary>
+            Exception Middleware
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Middleware.ExceptionMiddleware._next">
+            <summary>
+            The next
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Middleware.ExceptionMiddleware._logger">
+            <summary>
+            The logger
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Middleware.ExceptionMiddleware._correlationContextAccessor">
+            <summary>
+            The correlation context accessor
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.ExceptionMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILoggerFactory,CorrelationId.Abstractions.ICorrelationContextAccessor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.Middleware.ExceptionMiddleware"/> class.
+            </summary>
+            <param name="next">The next.</param>
+            <param name="loggerFactory">The logger factory.</param>
+            <param name="correlationContextAccessor">The correlation context accessor.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.ExceptionMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Process request.
+            </summary>
+            <param name="httpContext">HttpContext.</param>
+            <returns>
+            Returns nothing.
+            </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.ExceptionMiddleware.HandleExceptionAsync(Microsoft.AspNetCore.Http.HttpContext,System.Exception)">
+            <summary>
+            Handles exception and adds message in response with status code .
+            </summary>
+            <param name="context">The context.</param>
+            <param name="exception">The exception.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Middleware.ExceptionMiddlewareExtensions">
+            <summary>
+            Extension of application builder for exception middleware.
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.ExceptionMiddlewareExtensions.ConfigureExceptionMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configure exception middleware.
+            </summary>
+            <param name="app">Application builder.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Middleware.LoggingMiddleware">
+            <summary>
+            Logging Middleware
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Middleware.LoggingMiddleware._next">
+            <summary>
+            The next
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Middleware.LoggingMiddleware._logger">
+            <summary>
+            The logger
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Middleware.LoggingMiddleware._recyclableMemoryStreamManager">
+            <summary>
+            The recyclable memory stream manager
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Middleware.LoggingMiddleware._correlationContextAccessor">
+            <summary>
+            The correlation context accessor
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.LoggingMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILoggerFactory,CorrelationId.Abstractions.ICorrelationContextAccessor)">
+            <summary>
+            Create new instance of <see cref="T:HomeWorkToDos.API.Middleware.LoggingMiddleware" /> class.
+            </summary>
+            <param name="next">Next request delegate.</param>
+            <param name="loggerFactory">Logger factory.</param>
+            <param name="correlationContextAccessor">CorrelationContext accessor.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.LoggingMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Process request.
+            </summary>
+            <param name="context">Http context.</param>
+            <returns>
+            Returns nothing.
+            </returns>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.LoggingMiddleware.LogRequest(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Logs the request.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="correlationId">The correlation identifier.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.LoggingMiddleware.LogResponse(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Logs the response.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="correlationId">The correlation identifier.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.LoggingMiddleware.ReadStreamInChunks(System.IO.Stream)">
+            <summary>
+            Reads the stream in chunks.
+            </summary>
+            <param name="stream">The stream.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Middleware.RequestResponseLoggingMiddlewareExtensions">
+            <summary>
+            Extension of application builder for request response logging middleware.
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.RequestResponseLoggingMiddlewareExtensions.UseRequestResponseLogging(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configure request response logging middleware
+            </summary>
+            <param name="builder">Application builder.</param>
+            <returns>
+            Returns application builder.
+            </returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Middleware.TokenMiddleware">
+            <summary>
+            Token Middleware
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Middleware.TokenMiddleware._next">
+            <summary>
+            The next
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.Middleware.TokenMiddleware._jwtTokenConfig">
+            <summary>
+            The JWT token configuration
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.TokenMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Options.IOptions{HomeWorkToDos.Util.ConfigModels.JwtTokenConfig})">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.Middleware.TokenMiddleware"/> class.
+            </summary>
+            <param name="next">The next.</param>
+            <param name="jwtTokenConfig">The JWT token configuration.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.TokenMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext,HomeWorkToDos.Business.Contract.IUser)">
+            <summary>
+            Invokes the specified context.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="userService">The user service.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.TokenMiddleware.AttachUserToContext(Microsoft.AspNetCore.Http.HttpContext,HomeWorkToDos.Business.Contract.IUser,System.String)">
+            <summary>
+            Attaches the user to context.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="userService">The user service.</param>
+            <param name="token">The token.</param>
+            <exception cref="T:System.AccessViolationException"></exception>
+        </member>
+        <member name="T:HomeWorkToDos.API.Middleware.TokenMiddlewareExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Middleware.TokenMiddlewareExtension.UseTokenMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Uses the token middleware.
+            </summary>
+            <param name="builder">The builder.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.ServiceExtensions.CorrelationIdServiceExtension">
+            <summary>
+            CorrelationId Service Extension
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.ServiceExtensions.CorrelationIdServiceExtension.AddCorrelationIdHandlerAndDefaults(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the correlation identifier handler and defaults.
+            </summary>
+            <param name="services">The services.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.ServiceExtensions.GraphQLServiceExtension">
+            <summary>
+            Extension method for configure IService Collection for adding GraphQl services.
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.ServiceExtensions.GraphQLServiceExtension.AddGraphQLServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the graph ql services.
+            </summary>
+            <param name="service">The service.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.ServiceExtensions.SwaggerServiceExtension">
+            <summary>
+            Swagger Service Extension
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.ServiceExtensions.SwaggerServiceExtension.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            implements extension method for adding Swagger services.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:HomeWorkToDos.API.ServiceExtensions.TokenAuthenticationServiceExtension">
+            <summary>
+            Token Authentication Service Extension
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.ServiceExtensions.TokenAuthenticationServiceExtension.AddTokenAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Adds the token authentication.
+            </summary>
+            <param name="services">The services.</param>
+            <param name="configuration">The configuration.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Startup">
+            <summary>
+            Startup
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.Startup"/> class.
+            </summary>
+            <param name="configuration">The configuration.</param>
+        </member>
+        <member name="P:HomeWorkToDos.API.Startup.Configuration">
+            <summary>
+            Gets the configuration.
+            </summary>
+            <value>
+            The configuration.
+            </value>
+        </member>
+        <member name="M:HomeWorkToDos.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures the services.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Configures the specified application.
+            </summary>
+            <param name="app">The application.</param>
+            <param name="env">The env.</param>
+            <param name="loggerFactory">The logger factory.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Startup.GetJsonPatchInputFormatter">
+            <summary>
+            Gets the json patch input formatter.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HomeWorkToDos.DataAccess\HomeWorkToDos.DataAccess.csproj" />
+    <ProjectReference Include="..\HomeWorkToDos.Util\HomeWorkToDos.Util.csproj" />
+  </ItemGroup>
+
+</Project>
