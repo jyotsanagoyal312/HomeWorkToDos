@@ -49,7 +49,7 @@ namespace HomeWorkToDos.API.Controllers.v1
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ResponseModel<PagedList<LabelDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
-        [HttpGet("GetAll")]
+        [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] PaginationParameters parameters)
         {
             int userId = int.Parse(HttpContext.Items["UserId"].ToString());
@@ -99,16 +99,16 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// <summary>
         /// Gets the label by identifier.
         /// </summary>
-        /// <param name="labelId">The label identifier.</param>
+        /// <param name="id">The label identifier.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ResponseModel<LabelDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
-        [HttpGet("GetById/{labelId}")]
-        public async Task<IActionResult> GetById([Required] int labelId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([Required] int id)
         {
             int userId = int.Parse(HttpContext.Items["UserId"].ToString());
-            LabelDto labelModel = await _labelService.GetById(labelId, userId);
+            LabelDto labelModel = await _labelService.GetById(id, userId);
             if (labelModel != null)
             {
                 return Ok(
@@ -124,7 +124,7 @@ namespace HomeWorkToDos.API.Controllers.v1
                 {
                     IsSuccess = false,
                     Result = "Not found.",
-                    Message = "No data exist for Id = " + labelId + "."
+                    Message = "No data exist for Id = " + id + "."
                 });
         }
 
@@ -136,8 +136,8 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// <param name="version">The version.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(ResponseModel<LabelDto>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseModel<LabelDto>), StatusCodes.Status201Created)]
         [HttpPost]
         public async Task<IActionResult> Add(CreateLabelDto labelDto, ApiVersion version)
         {

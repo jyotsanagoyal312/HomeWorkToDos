@@ -5,6 +5,7 @@ using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace HomeWorkToDos.API.ServiceExtensions
 {
@@ -54,8 +55,8 @@ namespace HomeWorkToDos.API.ServiceExtensions
                 });
                 ////Set the comments path for the Swagger JSON and UI.
 
-                string filePath = Path.Combine(System.AppContext.BaseDirectory, "HomeWorkToDos.API.xml");
-                p.IncludeXmlComments(filePath);
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                p.IncludeXmlComments(xmlFile);
             });
             services.AddSwaggerGenNewtonsoftSupport();
             return services;

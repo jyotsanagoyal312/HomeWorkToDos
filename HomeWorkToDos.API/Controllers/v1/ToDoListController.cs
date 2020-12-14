@@ -54,7 +54,7 @@ namespace HomeWorkToDos.API.Controllers.v1
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ResponseModel<PagedList<ToDoListDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
-        [HttpGet("GetAll")]
+        [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] PaginationParameters parameters)
         {
             int userId = int.Parse(HttpContext.Items["UserId"].ToString());
@@ -104,16 +104,16 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// <summary>
         /// Gets the to do list by identifier.
         /// </summary>
-        /// <param name="toDoListId">To do list identifier.</param>
+        /// <param name="id">To do list identifier.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ResponseModel<ToDoListDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
-        [HttpGet("GetById/{toDoListId}")]
-        public async Task<IActionResult> GetById([Required] int toDoListId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([Required] int id)
         {
             int userId = int.Parse(HttpContext.Items["UserId"].ToString());
-            ToDoListDto toDoListDto = await _listService.GetById(toDoListId, userId);
+            ToDoListDto toDoListDto = await _listService.GetById(id, userId);
             if (toDoListDto != null)
             {
                 return Ok(
@@ -129,7 +129,7 @@ namespace HomeWorkToDos.API.Controllers.v1
                 {
                     IsSuccess = false,
                     Result = "Not found.",
-                    Message = "No data exist for Id = " + toDoListId + "."
+                    Message = "No data exist for Id = " + id + "."
                 });
         }
 
@@ -244,7 +244,7 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// <summary>
         /// Patches to do list.
         /// </summary>
-        /// <param name="toDoListId">To do list identifier.</param>
+        /// <param name="id">To do list identifier.</param>
         /// <param name="listToUpdatePatchDoc">The list to update patch document.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
@@ -252,8 +252,8 @@ namespace HomeWorkToDos.API.Controllers.v1
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
         [SwaggerRequestExample(typeof(List<Operation>), typeof(JsonPatchPersonRequestExample))]
-        [HttpPatch("{toDoListId}")]
-        public async Task<IActionResult> PatchToDoList([Required] int toDoListId, [FromBody] JsonPatchDocument<UpdateToDoListDto> listToUpdatePatchDoc)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchToDoList([Required] int id, [FromBody] JsonPatchDocument<UpdateToDoListDto> listToUpdatePatchDoc)
         {
             int userId = int.Parse(HttpContext.Items["UserId"].ToString());
             if (listToUpdatePatchDoc == null)
@@ -266,7 +266,7 @@ namespace HomeWorkToDos.API.Controllers.v1
                         Message = "Please try again with correct input."
                     });
             }
-            ToDoListDto existingToDoListDto = await _listService.GetById(toDoListId, userId);
+            ToDoListDto existingToDoListDto = await _listService.GetById(id, userId);
             if (existingToDoListDto == null)
             {
                 return NotFound(
@@ -274,7 +274,7 @@ namespace HomeWorkToDos.API.Controllers.v1
                     {
                         IsSuccess = false,
                         Result = "No existing record found for provided input.",
-                        Message = "No data exist for Id = " + toDoListId
+                        Message = "No data exist for Id = " + id
                     });
             }
             var existingUpdateToDoListDto = _mapper.Map<UpdateToDoListDto>(existingToDoListDto);
@@ -295,7 +295,7 @@ namespace HomeWorkToDos.API.Controllers.v1
                     {
                         IsSuccess = false,
                         Result = "No existing record found for provided input.",
-                        Message = "No data exist for Id = " + toDoListId
+                        Message = "No data exist for Id = " + id
                     });
             }
             else

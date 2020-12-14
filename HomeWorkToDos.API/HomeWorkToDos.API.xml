@@ -87,7 +87,7 @@
             <summary>
             Gets the label by identifier.
             </summary>
-            <param name="labelId">The label identifier.</param>
+            <param name="id">The label identifier.</param>
             <returns>Returns Action Result type based on Success or Failure.</returns>
         </member>
         <member name="M:HomeWorkToDos.API.Controllers.v1.LabelController.Add(HomeWorkToDos.Util.Dtos.CreateLabelDto,Microsoft.AspNetCore.Mvc.ApiVersion)">
@@ -139,7 +139,7 @@
             <summary>
             Gets the todoItem by identifier.
             </summary>
-            <param name="toDoItemId">To do item identifier.</param>
+            <param name="id">To do item identifier.</param>
             <returns>Returns Action Result type based on Success or Failure.</returns>
         </member>
         <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoItemController.Add(HomeWorkToDos.Util.Dtos.CreateToDoItemDto,Microsoft.AspNetCore.Mvc.ApiVersion)">
@@ -171,7 +171,7 @@
             <summary>
             Patches the specified to do item identifier.
             </summary>
-            <param name="toDoItemId">To do item identifier.</param>
+            <param name="id">To do item identifier.</param>
             <param name="toDoItemPatch">To do item patch.</param>
             <returns>Returns Action Result type based on Success or Failure.</returns>
         </member>
@@ -209,7 +209,7 @@
             <summary>
             Gets the to do list by identifier.
             </summary>
-            <param name="toDoListId">To do list identifier.</param>
+            <param name="id">To do list identifier.</param>
             <returns>Returns Action Result type based on Success or Failure.</returns>
         </member>
         <member name="M:HomeWorkToDos.API.Controllers.v1.ToDoListController.Add(HomeWorkToDos.Util.Dtos.CreateToDoListDto,Microsoft.AspNetCore.Mvc.ApiVersion)">
@@ -241,7 +241,7 @@
             <summary>
             Patches to do list.
             </summary>
-            <param name="toDoListId">To do list identifier.</param>
+            <param name="id">To do list identifier.</param>
             <param name="listToUpdatePatchDoc">The list to update patch document.</param>
             <returns>Returns Action Result type based on Success or Failure.</returns>
         </member>
