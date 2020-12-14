@@ -46,9 +46,9 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// </summary>
         /// <param name="parameters">The pagination parameters.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseModel<PagedList<LabelDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll([FromQuery] PaginationParameters parameters)
         {
@@ -101,9 +101,9 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// </summary>
         /// <param name="labelId">The label identifier.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseModel<LabelDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
         [HttpGet("GetById/{labelId}")]
         public async Task<IActionResult> GetById([Required] int labelId)
         {
@@ -135,9 +135,9 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// <param name="labelDto">The label.</param>
         /// <param name="version">The version.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseModel<LabelDto>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status201Created)]
         [HttpPost]
         public async Task<IActionResult> Add(CreateLabelDto labelDto, ApiVersion version)
         {
@@ -162,9 +162,9 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// </summary>
         /// <param name="id">The label identifier.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLabel([Required] int id)
         {

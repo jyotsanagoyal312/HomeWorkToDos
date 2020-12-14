@@ -17,6 +17,8 @@ using HomeWorkToDos.API.ServiceExtensions;
 using HomeWorkToDos.Util.Constants;
 using Microsoft.Extensions.Logging;
 using HotChocolate.AspNetCore;
+using Swashbuckle.AspNetCore.Filters;
+using HomeWorkToDos.API.Filter;
 
 namespace HomeWorkToDos.API
 {
@@ -61,6 +63,7 @@ namespace HomeWorkToDos.API
 
             var connectionString = Configuration.GetConnectionString("Default");
             services.RegisterDI(connectionString);
+            services.AddSwaggerExamplesFromAssemblyOf<JsonPatchPersonRequestExample>();
 
             services.AddApiVersioning(x =>
             {

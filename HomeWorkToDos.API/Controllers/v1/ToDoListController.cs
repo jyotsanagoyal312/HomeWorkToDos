@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
+using HomeWorkToDos.API.Filter;
 using HomeWorkToDos.Business.Contract;
 using HomeWorkToDos.Util.Dtos;
 using HomeWorkToDos.Util.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Filters;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
@@ -47,9 +51,9 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// </summary>
         /// <param name="parameters">The pagination parameters.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseModel<PagedList<ToDoListDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll([FromQuery] PaginationParameters parameters)
         {
@@ -102,9 +106,9 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// </summary>
         /// <param name="toDoListId">To do list identifier.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseModel<ToDoListDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
         [HttpGet("GetById/{toDoListId}")]
         public async Task<IActionResult> GetById([Required] int toDoListId)
         {
@@ -137,9 +141,9 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// <returns>
         /// Returns Action Result type based on Success or Failure.
         /// </returns>
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseModel<ToDoListDto>), StatusCodes.Status201Created)]
         [HttpPost]
         public async Task<IActionResult> Add(CreateToDoListDto createToDoList, ApiVersion version)
         {
@@ -165,10 +169,10 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// <param name="id">The identifier.</param>
         /// <param name="listToUpdate">The list to update.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseModel<ToDoListDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([Required] int id, UpdateToDoListDto listToUpdate)
         {
@@ -210,9 +214,9 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([Required] int id)
         {
@@ -243,10 +247,11 @@ namespace HomeWorkToDos.API.Controllers.v1
         /// <param name="toDoListId">To do list identifier.</param>
         /// <param name="listToUpdatePatchDoc">The list to update patch document.</param>
         /// <returns>Returns Action Result type based on Success or Failure.</returns>
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseModel<ToDoListDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status404NotFound)]
+        [SwaggerRequestExample(typeof(List<Operation>), typeof(JsonPatchPersonRequestExample))]
         [HttpPatch("{toDoListId}")]
         public async Task<IActionResult> PatchToDoList([Required] int toDoListId, [FromBody] JsonPatchDocument<UpdateToDoListDto> listToUpdatePatchDoc)
         {

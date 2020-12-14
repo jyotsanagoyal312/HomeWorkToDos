@@ -1,6 +1,7 @@
 ﻿using HomeWorkToDos.API.Filter;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace HomeWorkToDos.API.ServiceExtensions
             {
                 p.SwaggerDoc("v1", new OpenApiInfo { Title = "HomeWork ToDos API", Version = "v1" });
                 p.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                p.ExampleFilters();
 
                 p.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -32,7 +34,10 @@ namespace HomeWorkToDos.API.ServiceExtensions
                     Scheme = "Bearer"
                 });
                 p.OperationFilter<CorrelationIdOperationFilter>();
+                p.OperationFilter<RemoveVersionParameterFilter>();
                 p.SchemaFilter<ExampleSchemaFilter>();
+                p.DocumentFilter<ReplaceVersionWithExactValueInPathFilter>();
+
                 p.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {

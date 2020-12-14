@@ -57,8 +57,8 @@ namespace HomeWorkToDos.API.Controllers
         /// </summary>
         /// <param name="loginDto">The login model.</param>
         /// <returns>ApiResponse on User Login</returns>
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status400BadRequest)]
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
@@ -95,8 +95,8 @@ namespace HomeWorkToDos.API.Controllers
         /// </summary>
         /// <param name="user">The user.</param>
         /// <returns>ApiResponse based on success/failure.</returns>
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseModel<string>), StatusCodes.Status400BadRequest)]
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterUserDto user)
         {

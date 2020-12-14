@@ -291,6 +291,41 @@
             <param name="type">The type.</param>
             <returns></returns>
         </member>
+        <member name="T:HomeWorkToDos.API.Filter.JsonPatchPersonRequestExample">
+            <summary>
+            JsonPatchPersonRequestExample
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Filter.JsonPatchPersonRequestExample.GetExamples">
+            <summary>
+            GetExamples
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Filter.RemoveVersionParameterFilter">
+            <summary>
+            RemoveVersionParameterFilter
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Filter.RemoveVersionParameterFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Apply
+            </summary>
+            <param name="operation"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:HomeWorkToDos.API.Filter.ReplaceVersionWithExactValueInPathFilter">
+            <summary>
+            ReplaceVersionWithExactValueInPathFilter
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Filter.ReplaceVersionWithExactValueInPathFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            Apply
+            </summary>
+            <param name="swaggerDoc"></param>
+            <param name="context"></param>
+        </member>
         <member name="T:HomeWorkToDos.API.GraphQL.Mutation">
             <summary>
             Mutation class for GraphQl.
