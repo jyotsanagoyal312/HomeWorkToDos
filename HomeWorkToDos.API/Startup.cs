@@ -53,7 +53,7 @@ namespace HomeWorkToDos.API
         {
             services.Configure<JwtTokenConfig>(Configuration.GetSection("JwtToken"));
 
-            services.AddControllers(p => p.RespectBrowserAcceptHeader = true).AddXmlDataContractSerializerFormatters()
+            services.AddControllers(p => p.RespectBrowserAcceptHeader = true).AddXmlSerializerFormatters().AddXmlDataContractSerializerFormatters()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddHttpContextAccessor();
             services.AddAutoMapper(c => c.AddProfile<MappingProfile>(), typeof(Startup));
@@ -63,7 +63,6 @@ namespace HomeWorkToDos.API
 
             var connectionString = Configuration.GetConnectionString("Default");
             services.RegisterDI(connectionString);
-            services.AddSwaggerExamplesFromAssemblyOf<JsonPatchPersonRequestExample>();
 
             services.AddApiVersioning(x =>
             {
@@ -91,6 +90,7 @@ namespace HomeWorkToDos.API
 
             //Configure Swagger services.
             services.AddSwagger();
+            services.AddSwaggerExamplesFromAssemblyOf<JsonPatchPersonRequestExample>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -143,7 +143,7 @@ namespace HomeWorkToDos.API
         {
             ServiceProvider builder = new ServiceCollection()
                 .AddLogging()
-                .AddMvc()
+                .AddMvc().AddMvcOptions(o => o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter()))
                 .AddNewtonsoftJson()
                 .Services.BuildServiceProvider();
 

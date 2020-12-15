@@ -160,7 +160,7 @@ namespace HomeWorkToDos.API.Controllers.v1
             createToDoList.CreatedBy = userId;
             createToDoList.UserId = userId;
             ToDoListDto createdToDoList = await _listService.Add(createToDoList);
-            return CreatedAtAction(nameof(GetById), new { createdToDoList.ToDoListId, version = $"{version}" }, createdToDoList);
+            return CreatedAtAction(nameof(GetById), new { id = createdToDoList.ToDoListId, version = $"{version}" }, createdToDoList);
         }
 
         /// <summary>

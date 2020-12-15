@@ -17,13 +17,40 @@ namespace HomeWorkToDos.API.GraphQL
     [Authorize]
     public class Mutation
     {
+        /// <summary>
+        /// To do item repo
+        /// </summary>
         private readonly IToDoItemRepo _toDoItemRepo;
+        /// <summary>
+        /// To do list repo
+        /// </summary>
         private readonly IToDoListRepo _toDoListRepo;
+        /// <summary>
+        /// The label repo
+        /// </summary>
         private readonly ILabelRepo _labelRepo;
+        /// <summary>
+        /// The user repo
+        /// </summary>
         private readonly IUserRepo _userRepo;
+        /// <summary>
+        /// The user identifier
+        /// </summary>
         private readonly int _userId;
+        /// <summary>
+        /// The token configuration
+        /// </summary>
         private readonly JwtTokenConfig _tokenConfig;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Mutation"/> class.
+        /// </summary>
+        /// <param name="labelRepo">The label repo.</param>
+        /// <param name="toDoItemRepo">To do item repo.</param>
+        /// <param name="toDoListRepo">To do list repo.</param>
+        /// <param name="userRepo">The user repo.</param>
+        /// <param name="httpContextAccessor">The HTTP context accessor.</param>
+        /// <param name="tokenConfig">The token configuration.</param>
         public Mutation([Service] ILabelRepo labelRepo, [Service] IToDoItemRepo toDoItemRepo, [Service] IToDoListRepo toDoListRepo,
             [Service] IUserRepo userRepo, IHttpContextAccessor httpContextAccessor, IOptions<JwtTokenConfig> tokenConfig)
         {
@@ -43,8 +70,10 @@ namespace HomeWorkToDos.API.GraphQL
         /// <summary>
         /// Adds Label record
         /// </summary>
-        /// <param name="createLabelDto"></param>
-        /// <returns> added ToDoList record. </returns>
+        /// <param name="createLabelDto">The create label dto.</param>
+        /// <returns>
+        /// added ToDoList record.
+        /// </returns>
         public async Task<LabelDto> AddLabel(CreateLabelDto createLabelDto)
         {
             if (createLabelDto != null)
@@ -58,8 +87,10 @@ namespace HomeWorkToDos.API.GraphQL
         /// <summary>
         /// Delete Label record.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns> 1 on successful deletion else throws argument exception. </returns>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        /// 1 on successful deletion else throws argument exception.
+        /// </returns>
         public async Task<int> DeleteLabel(int id)
         {
             int deletedItem = await _labelRepo.Delete(id, _userId);
@@ -73,8 +104,10 @@ namespace HomeWorkToDos.API.GraphQL
         /// <summary>
         /// Adds ToDoItem record
         /// </summary>
-        /// <param name="createToDoItemDto"></param>
-        /// <returns> added ToDoList record. </returns>
+        /// <param name="createToDoItemDto">The create to do item dto.</param>
+        /// <returns>
+        /// added ToDoList record.
+        /// </returns>
         public async Task<ToDoItemDto> AddToDoItem(CreateToDoItemDto createToDoItemDto)
         {
             if (createToDoItemDto != null)
@@ -88,8 +121,10 @@ namespace HomeWorkToDos.API.GraphQL
         /// <summary>
         /// Update ToDoItem record
         /// </summary>
-        /// <param name="updateToDoItemDto"></param>
-        /// <returns> Updated record. </returns>
+        /// <param name="updateToDoItemDto">The update to do item dto.</param>
+        /// <returns>
+        /// Updated record.
+        /// </returns>
         public async Task<ToDoItemDto> UpdateToDoItem(UpdateToDoItemDto updateToDoItemDto)
         {
             ToDoItemDto updatedItem = await _toDoItemRepo.Update(updateToDoItemDto);
@@ -99,8 +134,10 @@ namespace HomeWorkToDos.API.GraphQL
         /// <summary>
         /// Delete ToDoItem record.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns> 1 on successful deletion else throws argument exception. </returns>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        /// 1 on successful deletion else throws argument exception.
+        /// </returns>
         public async Task<int> DeleteToDoItem(int id)
         {
             int deletedItem = await _toDoItemRepo.Delete(id, _userId);
@@ -114,8 +151,10 @@ namespace HomeWorkToDos.API.GraphQL
         /// <summary>
         /// Adds ToDoList record
         /// </summary>
-        /// <param name="createToDoListDto"></param>
-        /// <returns> added ToDoList record. </returns>
+        /// <param name="createToDoListDto">The create to do list dto.</param>
+        /// <returns>
+        /// added ToDoList record.
+        /// </returns>
         public async Task<ToDoListDto> AddToDoList(CreateToDoListDto createToDoListDto)
         {
             if (createToDoListDto != null)
@@ -129,8 +168,10 @@ namespace HomeWorkToDos.API.GraphQL
         /// <summary>
         /// Update ToDoList record
         /// </summary>
-        /// <param name="updateToDoListDto"></param>
-        /// <returns> Updated record. </returns>
+        /// <param name="updateToDoListDto">The update to do list dto.</param>
+        /// <returns>
+        /// Updated record.
+        /// </returns>
         public async Task<ToDoListDto> UpdateToDoList(UpdateToDoListDto updateToDoListDto)
         {
             ToDoListDto updatedItem = await _toDoListRepo.Update(updateToDoListDto);
@@ -140,8 +181,10 @@ namespace HomeWorkToDos.API.GraphQL
         /// <summary>
         /// Delete ToDoList record.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns> 1 on successful deletion else throws argument exception. </returns>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        /// 1 on successful deletion else throws argument exception.
+        /// </returns>
         public async Task<int> DeleteToDoList(int id)
         {
             int deletedItem = await _toDoListRepo.Delete(id, _userId);
@@ -155,7 +198,9 @@ namespace HomeWorkToDos.API.GraphQL
         /// </summary>
         /// <param name="userName">Username.</param>
         /// <param name="password">Password.</param>
-        /// <returns>Returns user id.</returns>
+        /// <returns>
+        /// Returns user id.
+        /// </returns>
         [AllowAnonymous]
         public async Task<ResponseModel<string>> AuthenticateUser(string userName, string password)
         {
@@ -178,8 +223,10 @@ namespace HomeWorkToDos.API.GraphQL
         /// <summary>
         /// register user.
         /// </summary>
-        /// <param name="userDto"></param>
-        /// <returns> success/failure result.</returns>
+        /// <param name="userDto">The user dto.</param>
+        /// <returns>
+        /// success/failure result.
+        /// </returns>
         [AllowAnonymous]
         public async Task<int> RegisterUser(RegisterUserDto userDto)
         {

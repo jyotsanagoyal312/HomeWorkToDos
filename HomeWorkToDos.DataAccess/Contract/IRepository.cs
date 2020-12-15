@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace HomeWorkToDos.DataAccess.Contract
 {
@@ -20,11 +21,6 @@ namespace HomeWorkToDos.DataAccess.Contract
         /// The current database context.
         /// </value>
         DbContext CurrentDbContext { get; }
-        /// <summary>
-        /// Gets all.
-        /// </summary>
-        /// <returns></returns>
-        IQueryable<T> GetAll();
         /// <summary>
         /// Adds the specified entity.
         /// </summary>
@@ -54,9 +50,9 @@ namespace HomeWorkToDos.DataAccess.Contract
         /// <summary>
         /// Finds the by identifier.
         /// </summary>
-        /// <param name="Id">The identifier.</param>
+        /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        T FindById(object Id);
+        Task<T> FindById(object id);
         /// <summary>
         /// Filters the list.
         /// </summary>
@@ -65,7 +61,7 @@ namespace HomeWorkToDos.DataAccess.Contract
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns></returns>
-        PagedList<T> FilterList(PaginationParameters paginationParams, Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+        Task<PagedList<T>> FilterList(PaginationParameters paginationParams, Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
            string includeProperties = "");
         /// <summary>
         /// Filters the list.
@@ -80,6 +76,6 @@ namespace HomeWorkToDos.DataAccess.Contract
         /// Saves this instance.
         /// </summary>
         /// <returns></returns>
-        int Save();
+        Task<int> Save();
     }
 }

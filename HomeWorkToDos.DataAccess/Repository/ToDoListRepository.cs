@@ -3,9 +3,9 @@ using HomeWorkToDos.DataAccess.Contract;
 using HomeWorkToDos.DataAccess.Models;
 using HomeWorkToDos.Util.Dtos;
 using HomeWorkToDos.Util.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeWorkToDos.DataAccess.Repository
@@ -45,9 +45,9 @@ namespace HomeWorkToDos.DataAccess.Repository
         {
             PagedList<ToDoList> toDoLists;
             if (paginationParams != null && !string.IsNullOrWhiteSpace(paginationParams.SearchText))
-                toDoLists = _toDoListRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value && x.Description.Contains(paginationParams.SearchText), null, "Label,User,ToDoItem");
+                toDoLists = await _toDoListRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value && x.Description.Contains(paginationParams.SearchText), null, "Label,User,ToDoItem");
             else
-                toDoLists = _toDoListRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoItem");
+                toDoLists = await _toDoListRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoItem");
             
             var toDoListDtos =  _mapper.Map<List<ToDoListDto>>(toDoLists);
             return new PagedList<ToDoListDto>(toDoListDtos, toDoLists.Count, toDoLists.CurrentPage, toDoLists.PageSize);
@@ -60,7 +60,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<List<ToDoListDto>> GetAllByUser(int userId)
         {
-            List<ToDoList> toDoLists = _toDoListRepository.FilterList(x => x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoItem").ToList();
+            List<ToDoList> toDoLists = await _toDoListRepository.FilterList(x => x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoItem").ToListAsync();
 
             return _mapper.Map<List<ToDoListDto>>(toDoLists);
         }
@@ -73,7 +73,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<ToDoListDto> GetById(int listId, int userId)
         {
-            ToDoList toDoList = _toDoListRepository.FilterList(x => x.ToDoListId == listId && x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoItem").FirstOrDefault();
+            ToDoList toDoList = await _toDoListRepository.FilterList(x => x.ToDoListId == listId && x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoItem").FirstOrDefaultAsync();
             return _mapper.Map<ToDoListDto>(toDoList);
         }
 
@@ -88,7 +88,7 @@ namespace HomeWorkToDos.DataAccess.Repository
             toDoList.CreatedOn = DateTime.UtcNow;
             toDoList.CreatedBy = toDoListDto.UserId;
             toDoList = _toDoListRepository.Add(toDoList);
-            _toDoListRepository.Save();
+            await _toDoListRepository.Save();
             return _mapper.Map<ToDoListDto>(toDoList);
         }
 
@@ -99,7 +99,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<ToDoListDto> Update(UpdateToDoListDto toDoListDto)
         {
-            ToDoList toDoListDb = _toDoListRepository.FilterList(x => x.ToDoListId == toDoListDto.ToDoListId && x.UserId == toDoListDto.UserId && x.IsActive.Value).FirstOrDefault();
+            ToDoList toDoListDb = await _toDoListRepository.FilterList(x => x.ToDoListId == toDoListDto.ToDoListId && x.UserId == toDoListDto.UserId && x.IsActive.Value).FirstOrDefaultAsync();
             if (toDoListDb == null)
                 return null;
 
@@ -114,7 +114,7 @@ namespace HomeWorkToDos.DataAccess.Repository
             }
 
             _toDoListRepository.Update(toDoList);
-            _toDoListRepository.Save();
+            await _toDoListRepository.Save();
             return _mapper.Map<ToDoListDto>(toDoList);
         }
 
@@ -126,7 +126,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<int> Delete(long listId, long userId)
         {
-            ToDoList toDoList = _toDoListRepository.FilterList(x => x.ToDoListId == listId && x.UserId == userId && x.IsActive.Value).FirstOrDefault();
+            ToDoList toDoList = await _toDoListRepository.FilterList(x => x.ToDoListId == listId && x.UserId == userId && x.IsActive.Value).FirstOrDefaultAsync();
             if (toDoList == null)
                 return 0;
 
@@ -134,8 +134,7 @@ namespace HomeWorkToDos.DataAccess.Repository
             toDoList.ModifiedBy = toDoList.UserId;
             toDoList.ModifiedOn = DateTime.UtcNow;
             _toDoListRepository.Update(toDoList);
-            _toDoListRepository.Save();
-            return _toDoListRepository.Save();
+            return await _toDoListRepository.Save();
         }
     }
 }

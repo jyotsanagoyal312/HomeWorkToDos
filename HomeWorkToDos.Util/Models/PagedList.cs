@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace HomeWorkToDos.Util.Models
 {
@@ -72,19 +71,5 @@ namespace HomeWorkToDos.Util.Models
 			AddRange(items);
 		}
 
-        /// <summary>
-        /// Converts to pagedlist.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <returns></returns>
-        public static PagedList<T> ToPagedList(IQueryable<T> source, int pageNumber, int pageSize)
-		{
-			var count = source.Count();
-			var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-
-			return new PagedList<T>(items, count, pageNumber, pageSize);
-		}
 	}
 }

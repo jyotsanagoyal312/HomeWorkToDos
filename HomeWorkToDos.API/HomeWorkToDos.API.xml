@@ -331,61 +331,118 @@
             Mutation class for GraphQl.
             </summary>
         </member>
+        <member name="F:HomeWorkToDos.API.GraphQL.Mutation._toDoItemRepo">
+            <summary>
+            To do item repo
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.GraphQL.Mutation._toDoListRepo">
+            <summary>
+            To do list repo
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.GraphQL.Mutation._labelRepo">
+            <summary>
+            The label repo
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.GraphQL.Mutation._userRepo">
+            <summary>
+            The user repo
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.GraphQL.Mutation._userId">
+            <summary>
+            The user identifier
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.GraphQL.Mutation._tokenConfig">
+            <summary>
+            The token configuration
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Mutation.#ctor(HomeWorkToDos.DataAccess.Contract.ILabelRepo,HomeWorkToDos.DataAccess.Contract.IToDoItemRepo,HomeWorkToDos.DataAccess.Contract.IToDoListRepo,HomeWorkToDos.DataAccess.Contract.IUserRepo,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{HomeWorkToDos.Util.ConfigModels.JwtTokenConfig})">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.GraphQL.Mutation"/> class.
+            </summary>
+            <param name="labelRepo">The label repo.</param>
+            <param name="toDoItemRepo">To do item repo.</param>
+            <param name="toDoListRepo">To do list repo.</param>
+            <param name="userRepo">The user repo.</param>
+            <param name="httpContextAccessor">The HTTP context accessor.</param>
+            <param name="tokenConfig">The token configuration.</param>
+        </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Mutation.AddLabel(HomeWorkToDos.Util.Dtos.CreateLabelDto)">
             <summary>
             Adds Label record
             </summary>
-            <param name="createLabelDto"></param>
-            <returns> added ToDoList record. </returns>
+            <param name="createLabelDto">The create label dto.</param>
+            <returns>
+            added ToDoList record.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Mutation.DeleteLabel(System.Int32)">
             <summary>
             Delete Label record.
             </summary>
-            <param name="id"></param>
-            <returns> 1 on successful deletion else throws argument exception. </returns>
+            <param name="id">The identifier.</param>
+            <returns>
+            1 on successful deletion else throws argument exception.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Mutation.AddToDoItem(HomeWorkToDos.Util.Dtos.CreateToDoItemDto)">
             <summary>
             Adds ToDoItem record
             </summary>
-            <param name="createToDoItemDto"></param>
-            <returns> added ToDoList record. </returns>
+            <param name="createToDoItemDto">The create to do item dto.</param>
+            <returns>
+            added ToDoList record.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Mutation.UpdateToDoItem(HomeWorkToDos.Util.Dtos.UpdateToDoItemDto)">
             <summary>
             Update ToDoItem record
             </summary>
-            <param name="updateToDoItemDto"></param>
-            <returns> Updated record. </returns>
+            <param name="updateToDoItemDto">The update to do item dto.</param>
+            <returns>
+            Updated record.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Mutation.DeleteToDoItem(System.Int32)">
             <summary>
             Delete ToDoItem record.
             </summary>
-            <param name="id"></param>
-            <returns> 1 on successful deletion else throws argument exception. </returns>
+            <param name="id">The identifier.</param>
+            <returns>
+            1 on successful deletion else throws argument exception.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Mutation.AddToDoList(HomeWorkToDos.Util.Dtos.CreateToDoListDto)">
             <summary>
             Adds ToDoList record
             </summary>
-            <param name="createToDoListDto"></param>
-            <returns> added ToDoList record. </returns>
+            <param name="createToDoListDto">The create to do list dto.</param>
+            <returns>
+            added ToDoList record.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Mutation.UpdateToDoList(HomeWorkToDos.Util.Dtos.UpdateToDoListDto)">
             <summary>
             Update ToDoList record
             </summary>
-            <param name="updateToDoListDto"></param>
-            <returns> Updated record. </returns>
+            <param name="updateToDoListDto">The update to do list dto.</param>
+            <returns>
+            Updated record.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Mutation.DeleteToDoList(System.Int32)">
             <summary>
             Delete ToDoList record.
             </summary>
-            <param name="id"></param>
-            <returns> 1 on successful deletion else throws argument exception. </returns>
+            <param name="id">The identifier.</param>
+            <returns>
+            1 on successful deletion else throws argument exception.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Mutation.AuthenticateUser(System.String,System.String)">
             <summary>
@@ -393,80 +450,149 @@
             </summary>
             <param name="userName">Username.</param>
             <param name="password">Password.</param>
-            <returns>Returns user id.</returns>
+            <returns>
+            Returns user id.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Mutation.RegisterUser(HomeWorkToDos.Util.Dtos.RegisterUserDto)">
             <summary>
             register user.
             </summary>
-            <param name="userDto"></param>
-            <returns> success/failure result.</returns>
+            <param name="userDto">The user dto.</param>
+            <returns>
+            success/failure result.
+            </returns>
         </member>
         <member name="T:HomeWorkToDos.API.GraphQL.Query">
             <summary>
             Query class for GraphQl.
             </summary>
         </member>
+        <member name="F:HomeWorkToDos.API.GraphQL.Query._labelRepo">
+            <summary>
+            The label repo
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.GraphQL.Query._toDoListRepo">
+            <summary>
+            To do list repo
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.GraphQL.Query._toDoItemRepo">
+            <summary>
+            To do item repo
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.GraphQL.Query._userRepo">
+            <summary>
+            The user repo
+            </summary>
+        </member>
+        <member name="F:HomeWorkToDos.API.GraphQL.Query._userId">
+            <summary>
+            The user identifier
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.GraphQL.Query.#ctor(HomeWorkToDos.DataAccess.Contract.ILabelRepo,HomeWorkToDos.DataAccess.Contract.IToDoItemRepo,HomeWorkToDos.DataAccess.Contract.IToDoListRepo,HomeWorkToDos.DataAccess.Contract.IUserRepo,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.GraphQL.Query"/> class.
+            </summary>
+            <param name="labelRepo">The label repo.</param>
+            <param name="toDoItemRepo">To do item repo.</param>
+            <param name="toDoListRepo">To do list repo.</param>
+            <param name="userRepo">The user repo.</param>
+            <param name="httpContextAccessor">The HTTP context accessor.</param>
+        </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Query.GetAllLabels">
             <summary>
             Get labels.
             </summary>
-            <returns>Returns labels.</returns>
+            <returns>
+            Returns labels.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Query.GetLabelById(System.Int32)">
             <summary>
             Get label by id.
             </summary>
             <param name="labelId">label id.</param>
+            <returns></returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Query.GetAllToDoItems">
             <summary>
             Get ToDoItems.
             </summary>
-            <returns>Returns ToDoItems.</returns>
+            <returns>
+            Returns ToDoItems.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Query.GetToDoItemById(System.Int32)">
             <summary>
             Get ToDoItem by id.
             </summary>
-            <param name="toDoItemId">ToDoItem id.</param>        
+            <param name="toDoItemId">ToDoItem id.</param>
+            <returns></returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Query.GetAllToDoLists">
             <summary>
             Get ToDoLists.
             </summary>
-            <returns>Returns ToDoLists.</returns>
+            <returns>
+            Returns ToDoLists.
+            </returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Query.GetToDoListById(System.Int32)">
             <summary>
             Get ToDoList by id.
             </summary>
             <param name="toDoListId">ToDoList id.</param>
+            <returns></returns>
         </member>
         <member name="M:HomeWorkToDos.API.GraphQL.Query.GetById">
             <summary>
             Get user by user id.
             </summary>
-            <returns>Returns user details.</returns>
+            <returns>
+            Returns user details.
+            </returns>
         </member>
         <member name="T:HomeWorkToDos.API.Handler.CorrelationIdDelegatingHandler">
             <summary>
             Implements method for forwarding CorrelationID in HttpRequestheader.
             </summary>
+            <seealso cref="T:System.Net.Http.DelegatingHandler" />
+        </member>
+        <member name="F:HomeWorkToDos.API.Handler.CorrelationIdDelegatingHandler._logger">
+            <summary>
+            The logger
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Handler.CorrelationIdDelegatingHandler.#ctor(Microsoft.Extensions.Logging.ILogger{HomeWorkToDos.API.Handler.CorrelationIdDelegatingHandler})">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.Handler.CorrelationIdDelegatingHandler"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
         </member>
         <member name="M:HomeWorkToDos.API.Handler.CorrelationIdDelegatingHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
             <summary>
             Forwards CorrelationID in HttpRequestheader.
             </summary>
-            <param name="request"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
+            <param name="request">The HTTP request message to send to the server.</param>
+            <param name="cancellationToken">A cancellation token to cancel operation.</param>
+            <returns>
+            The task object representing the asynchronous operation.
+            </returns>
         </member>
         <member name="T:HomeWorkToDos.API.Mapper.MappingProfile">
             <summary>
             Mapping Profile
             </summary>
             <seealso cref="T:AutoMapper.Profile" />
+        </member>
+        <member name="M:HomeWorkToDos.API.Mapper.MappingProfile.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeWorkToDos.API.Mapper.MappingProfile"/> class.
+            </summary>
         </member>
         <member name="T:HomeWorkToDos.API.Middleware.ContentLocationMiddleware">
             <summary>
@@ -688,6 +814,24 @@
             Uses the token middleware.
             </summary>
             <param name="builder">The builder.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HomeWorkToDos.API.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HomeWorkToDos.API.Program.Main(System.String[])">
+            <summary>
+            Defines the entry point of the application.
+            </summary>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="M:HomeWorkToDos.API.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Creates the host builder.
+            </summary>
+            <param name="args">The arguments.</param>
             <returns></returns>
         </member>
         <member name="T:HomeWorkToDos.API.ServiceExtensions.CorrelationIdServiceExtension">

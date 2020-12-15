@@ -2,10 +2,10 @@
 using HomeWorkToDos.DataAccess.Contract;
 using HomeWorkToDos.DataAccess.Models;
 using HomeWorkToDos.Util.Dtos;
-using System.Threading.Tasks;
-using System.Linq;
 using HomeWorkToDos.Util.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HomeWorkToDos.DataAccess.Repository
 {
@@ -44,9 +44,9 @@ namespace HomeWorkToDos.DataAccess.Repository
         {
             PagedList<Label> labels;
             if (paginationParams!= null && !string.IsNullOrWhiteSpace(paginationParams.SearchText))
-                labels = _labelRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value && x.Description.Contains(paginationParams.SearchText), null, "User");
+                labels = await _labelRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value && x.Description.Contains(paginationParams.SearchText), null, "User");
             else
-                labels = _labelRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value, null, "User");
+                labels = await _labelRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value, null, "User");
 
             var labelDtos = _mapper.Map<List<LabelDto>>(labels);
 
@@ -60,7 +60,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<List<LabelDto>> GetByUser(int userId)
         {
-            List<Label> labels = _labelRepository.FilterList(x => x.UserId == userId && x.IsActive.Value, null, "User").ToList();
+            List<Label> labels = await _labelRepository.FilterList(x => x.UserId == userId && x.IsActive.Value, null, "User").ToListAsync();
             return  _mapper.Map<List<LabelDto>>(labels);
         }
 
@@ -72,7 +72,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<LabelDto> GetById(int labelId, int userId)
         {
-            var label = _labelRepository.FilterList(x => x.LabelId == labelId && x.UserId == userId && x.IsActive.Value, null, "User").FirstOrDefault();
+            var label = await _labelRepository.FilterList(x => x.LabelId == labelId && x.UserId == userId && x.IsActive.Value, null, "User").FirstOrDefaultAsync();
             return _mapper.Map<LabelDto>(label);
         }
 
@@ -85,7 +85,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         {
             Label label = _mapper.Map<Label>(labelDto);
             label = _labelRepository.Add(label);
-            _labelRepository.Save();
+            await _labelRepository.Save();
             return _mapper.Map<LabelDto>(label);
         }
 
@@ -97,14 +97,14 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<int> Delete(int labelId, int userId)
         {
-            var label = _labelRepository.FilterList(x => x.LabelId == labelId && x.UserId == userId && x.IsActive.Value).FirstOrDefault();
+            var label = await _labelRepository.FilterList(x => x.LabelId == labelId && x.UserId == userId && x.IsActive.Value).FirstOrDefaultAsync();
 
             if (label == null)
                 return 0;
 
             label.IsActive = false;
             _labelRepository.Update(label);
-            return _labelRepository.Save();
+            return await _labelRepository.Save();
         }
     }
 }

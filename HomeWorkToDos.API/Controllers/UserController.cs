@@ -119,7 +119,7 @@ namespace HomeWorkToDos.API.Controllers
                     {
                         IsSuccess = false,
                         Result = "Failed.",
-                        Message = "Invalid request, Mandatory fields not provided in request."
+                        Message = "Invalid request, User already exists with this username."
                     });
             }
         }

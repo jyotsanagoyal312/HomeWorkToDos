@@ -3,9 +3,9 @@ using HomeWorkToDos.DataAccess.Contract;
 using HomeWorkToDos.DataAccess.Models;
 using HomeWorkToDos.Util.Dtos;
 using HomeWorkToDos.Util.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeWorkToDos.DataAccess.Repository
@@ -45,9 +45,9 @@ namespace HomeWorkToDos.DataAccess.Repository
         {
             PagedList<ToDoItem> toDoItems;
             if (paginationParams != null && !string.IsNullOrWhiteSpace(paginationParams.SearchText))
-                toDoItems = _toDoItemRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value && x.Description.Contains(paginationParams.SearchText), null, "Label,User,ToDoList");
+                toDoItems = await _toDoItemRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value && x.Description.Contains(paginationParams.SearchText), null, "Label,User,ToDoList");
             else
-                toDoItems = _toDoItemRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoList");
+                toDoItems = await _toDoItemRepository.FilterList(paginationParams, x => x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoList");
             
             var toDoItemDtos = _mapper.Map<List<ToDoItemDto>>(toDoItems);
             return new PagedList<ToDoItemDto>(toDoItemDtos, toDoItems.Count, toDoItems.CurrentPage, toDoItems.PageSize);
@@ -60,7 +60,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<List<ToDoItemDto>> GetAllByUser(int userId)
         {
-            List<ToDoItem> toDoItems = _toDoItemRepository.FilterList(x => x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoList").ToList();
+            List<ToDoItem> toDoItems = await _toDoItemRepository.FilterList(x => x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoList").ToListAsync();
 
             return _mapper.Map<List<ToDoItemDto>>(toDoItems);
         }
@@ -76,9 +76,9 @@ namespace HomeWorkToDos.DataAccess.Repository
         {
             PagedList<ToDoItem> toDoItems;
             if (paginationParams != null && !string.IsNullOrWhiteSpace(paginationParams.SearchText))
-                toDoItems = _toDoItemRepository.FilterList(paginationParams, x => x.ToDoListId == listId && x.UserId == userId && x.IsActive.Value && x.Description.Contains(paginationParams.SearchText), null, "Label, User, ToDoList");
+                toDoItems = await _toDoItemRepository.FilterList(paginationParams, x => x.ToDoListId == listId && x.UserId == userId && x.IsActive.Value && x.Description.Contains(paginationParams.SearchText), null, "Label, User, ToDoList");
             else
-                toDoItems = _toDoItemRepository.FilterList(paginationParams, x => x.ToDoListId == listId && x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoList");
+                toDoItems = await _toDoItemRepository.FilterList(paginationParams, x => x.ToDoListId == listId && x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoList");
 
             var toDoItemDtos = _mapper.Map<List<ToDoItemDto>>(toDoItems);
             return new PagedList<ToDoItemDto>(toDoItemDtos, toDoItems.Count, toDoItems.CurrentPage, toDoItems.PageSize);
@@ -92,7 +92,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<ToDoItemDto> GetById(int itemId, int userId)
         {
-            ToDoItem toDoItem = _toDoItemRepository.FilterList(x => x.ToDoItemId == itemId && x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoList").FirstOrDefault();
+            ToDoItem toDoItem = await _toDoItemRepository.FilterList(x => x.ToDoItemId == itemId && x.UserId == userId && x.IsActive.Value, null, "Label,User,ToDoList").FirstOrDefaultAsync();
             return _mapper.Map<ToDoItemDto>(toDoItem);
         }
 
@@ -107,7 +107,7 @@ namespace HomeWorkToDos.DataAccess.Repository
             toDoItem.CreatedOn = DateTime.UtcNow;
             toDoItem.CreatedBy = toDoItem.UserId;
             toDoItem = _toDoItemRepository.Add(toDoItem);
-            _toDoItemRepository.Save();
+            await _toDoItemRepository.Save();
             return _mapper.Map<ToDoItemDto>(toDoItem);
         }
 
@@ -118,7 +118,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<ToDoItemDto> Update(UpdateToDoItemDto toDoItemDto)
         {
-            ToDoItem toDoItemDb = _toDoItemRepository.FilterList(x => x.ToDoItemId == toDoItemDto.ToDoItemId && x.UserId == toDoItemDto.UserId && x.IsActive.Value).FirstOrDefault();
+            ToDoItem toDoItemDb = await _toDoItemRepository.FilterList(x => x.ToDoItemId == toDoItemDto.ToDoItemId && x.UserId == toDoItemDto.UserId && x.IsActive.Value).FirstOrDefaultAsync();
             if (toDoItemDb == null)
                 return null;
 
@@ -133,7 +133,7 @@ namespace HomeWorkToDos.DataAccess.Repository
             }
 
             _toDoItemRepository.Update(toDoItem);
-            _toDoItemRepository.Save();
+            await _toDoItemRepository.Save();
             return _mapper.Map<ToDoItemDto>(toDoItem);
         }
 
@@ -145,7 +145,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<int> Delete(int itemId, int userId)
         {
-            ToDoItem toDoItem = _toDoItemRepository.FilterList(x => x.ToDoItemId == itemId && x.UserId == userId && x.IsActive.Value).FirstOrDefault();
+            ToDoItem toDoItem = await _toDoItemRepository.FilterList(x => x.ToDoItemId == itemId && x.UserId == userId && x.IsActive.Value).FirstOrDefaultAsync();
             if (toDoItem == null)
                 return 0;
 
@@ -153,8 +153,7 @@ namespace HomeWorkToDos.DataAccess.Repository
             toDoItem.ModifiedBy = toDoItem.UserId;
             toDoItem.ModifiedOn = DateTime.UtcNow;
             _toDoItemRepository.Update(toDoItem);
-            _toDoItemRepository.Save();
-            return _toDoItemRepository.Save();
+            return await _toDoItemRepository.Save();
         }
     }
 }

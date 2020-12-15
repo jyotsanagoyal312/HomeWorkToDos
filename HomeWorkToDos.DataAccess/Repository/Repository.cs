@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace HomeWorkToDos.DataAccess.Repository
 {
@@ -55,7 +56,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns></returns>
-        public virtual T Add(T entity)
+        public T Add(T entity)
         {
             return _dbset.Add(entity).Entity;
         }
@@ -64,7 +65,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// Adds the range.
         /// </summary>
         /// <param name="entities">The entities.</param>
-        public virtual void AddRange(IList<T> entities)
+        public void AddRange(IList<T> entities)
         {
             _dbset.AddRange(entities);
         }
@@ -73,7 +74,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// Deletes the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        public virtual void Delete(object id)
+        public void Delete(object id)
         {
             T existing = _dbset.Find(id);
             _dbset.Remove(existing);
@@ -83,7 +84,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// Updates the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        public virtual void Update(T entity)
+        public void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
         }
@@ -92,7 +93,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// Updates the range.
         /// </summary>
         /// <param name="entities">The entities.</param>
-        public virtual void UpdateRange(IList<T> entities)
+        public void UpdateRange(IList<T> entities)
         {
             entities.ToList().ForEach(entity =>
             {
@@ -105,28 +106,11 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public virtual T FindById(object id)
+        public async Task<T> FindById(object id)
         {
-            return _dbset.Find(id);
+            return await _dbset.FindAsync(id);
         }
 
-        /// <summary>
-        /// Gets all.
-        /// </summary>
-        /// <returns></returns>
-        public virtual IQueryable<T> GetAll()
-        {
-            return _dbset;
-        }
-
-        /// <summary>
-        /// Gets all by database set.
-        /// </summary>
-        /// <returns></returns>
-        public virtual DbSet<T> GetAllByDbSet()
-        {
-            return _dbset;
-        }
 
         /// <summary>
         /// Filters the list.
@@ -136,7 +120,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns></returns>
-        public PagedList<T> FilterList(PaginationParameters paginationParams = null, Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+        public async Task<PagedList<T>> FilterList(PaginationParameters paginationParams, Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
            string includeProperties = "")
         {
             IQueryable<T> query = _dbset.AsNoTracking();
@@ -158,9 +142,9 @@ namespace HomeWorkToDos.DataAccess.Repository
             }
 
             if (paginationParams != null)
-                return PagedList<T>.ToPagedList(query, paginationParams.PageNumber, paginationParams.PageSize);
+                return await ToPagedList(query, paginationParams.PageNumber, paginationParams.PageSize);
             else
-                return PagedList<T>.ToPagedList(query, 1, Int32.MaxValue);
+                return await ToPagedList(query, 1, Int32.MaxValue);
         }
 
         /// <summary>
@@ -170,7 +154,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns></returns>
-        public IQueryable<T> FilterList(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+        public IQueryable<T> FilterList(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
            string includeProperties = "")
         {
             IQueryable<T> query = _dbset.AsNoTracking();
@@ -199,9 +183,24 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// Saves this instance.
         /// </summary>
         /// <returns></returns>
-        public int Save()
+        public async Task<int> Save()
         {
-            return _context.SaveChanges();
+            return await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Converts to pagedlist.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="pageNumber">The page number.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <returns></returns>
+        private async Task<PagedList<T>> ToPagedList(IQueryable<T> source, int pageNumber, int pageSize)
+        {
+            var count = await source.CountAsync();
+            var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            return new PagedList<T>(items, count, pageNumber, pageSize);
         }
     }
 }

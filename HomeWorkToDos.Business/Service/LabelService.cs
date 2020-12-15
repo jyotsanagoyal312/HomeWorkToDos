@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using HomeWorkToDos.Business.Contract;
 using HomeWorkToDos.Util.Dtos;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using HomeWorkToDos.DataAccess.Contract;
 using HomeWorkToDos.Util.Models;

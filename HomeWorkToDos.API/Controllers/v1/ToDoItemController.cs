@@ -162,7 +162,7 @@ namespace HomeWorkToDos.API.Controllers.v1
             toDoItem.CreatedBy = userId;
             toDoItem.UserId = userId;
             ToDoItemDto createdToDoItem = await _itemService.Add(toDoItem);
-            return CreatedAtAction(nameof(GetById), new { createdToDoItem.ToDoItemId, version = $"{version}" }, createdToDoItem);
+            return CreatedAtAction(nameof(GetById), new { id = createdToDoItem.ToDoItemId, version = $"{version}" }, createdToDoItem);
         }
 
         /// <summary>

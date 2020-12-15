@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
@@ -154,7 +155,7 @@ namespace HomeWorkToDos.API.Controllers.v1
             labelDto.CreatedBy = userId;
             labelDto.UserId = userId;
             LabelDto createdLabel = await _labelService.Add(labelDto);
-            return CreatedAtAction(nameof(GetById), new { createdLabel.LabelId, version = $"{version}" }, createdLabel);
+            return CreatedAtAction(nameof(GetById), new { id = createdLabel.LabelId, version = $"{version}" }, createdLabel);
         }
 
         /// <summary>

@@ -3,7 +3,8 @@ using HomeWorkToDos.DataAccess.Contract;
 using HomeWorkToDos.DataAccess.Models;
 using HomeWorkToDos.Util.Dtos;
 using System.Threading.Tasks;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using HomeWorkToDos.Util.Helper;
 
 namespace HomeWorkToDos.DataAccess.Repository
 {
@@ -40,7 +41,12 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<int> AddUser(RegisterUserDto userDto)
         {
-            var userExists = _userRepository.FilterList(x => x.UserName.ToLower() == userDto.UserName.ToLower()).Any();
+            if (userDto.Password != null)
+            {
+                userDto.Password = CommonHelper.EncodePasswordToBase64(userDto.Password);
+            }
+
+            var userExists = await _userRepository.FilterList(x => x.UserName.ToLower() == userDto.UserName.ToLower()).AnyAsync();
             if (userExists)
             {
                 // user already exists in db with username
@@ -49,7 +55,7 @@ namespace HomeWorkToDos.DataAccess.Repository
 
             var user = _mapper.Map<User>(userDto);
             user = _userRepository.Add(user);
-            _userRepository.Save();
+            await _userRepository.Save();
             return user.UserId;
         }
         /// <summary>
@@ -60,7 +66,8 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<UserDto> UserLogin(string userName, string password)
         {
-            var user = _userRepository.FilterList(x => x.UserName.ToLower() == userName.ToLower() && x.Password == password).FirstOrDefault();
+            var encodedPassword = CommonHelper.EncodePasswordToBase64(password);
+            var user = await _userRepository.FilterList(x => x.UserName.ToLower() == userName.ToLower() && x.Password == encodedPassword).FirstOrDefaultAsync();
             if (user == null)
             {
                 // user not found in db with credentials
@@ -78,7 +85,7 @@ namespace HomeWorkToDos.DataAccess.Repository
         /// <returns></returns>
         public async Task<UserDto> GetById(int userId)
         {
-            var user = _userRepository.FindById(userId);
+            var user = await _userRepository.FindById(userId);
             if (user == null)
             {
                 // user not found in db with credentials

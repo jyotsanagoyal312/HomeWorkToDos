@@ -1,5 +1,6 @@
 ﻿using HomeWorkToDos.DataAccess.Data;
 using HomeWorkToDos.DataAccess.Models;
+using HomeWorkToDos.Util.Helper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace HomeWorkToDos.UnitTest.Util
                 FirstName = "Jyotsana",
                 LastName = "Goyal",
                 UserName = "Jyotsana",
-                Password = "123",
+                Password = CommonHelper.EncodePasswordToBase64( "123"),
                 Email = "test@mail.com",
                 Contact = "1111111111",
                 CreatedOn = DateTime.UtcNow,

@@ -11,10 +11,18 @@ namespace HomeWorkToDos.API.Handler
     /// <summary>
     /// Implements method for forwarding CorrelationID in HttpRequestheader.
     /// </summary>
+    /// <seealso cref="System.Net.Http.DelegatingHandler" />
     public class CorrelationIdDelegatingHandler : DelegatingHandler
     {
+        /// <summary>
+        /// The logger
+        /// </summary>
         private readonly ILogger<CorrelationIdDelegatingHandler> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorrelationIdDelegatingHandler"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
         public CorrelationIdDelegatingHandler(ILogger<CorrelationIdDelegatingHandler> logger)
         {
             _logger = logger;
@@ -23,9 +31,11 @@ namespace HomeWorkToDos.API.Handler
         /// <summary>
         /// Forwards CorrelationID in HttpRequestheader.
         /// </summary>
-        /// <param name="request"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <param name="request">The HTTP request message to send to the server.</param>
+        /// <param name="cancellationToken">A cancellation token to cancel operation.</param>
+        /// <returns>
+        /// The task object representing the asynchronous operation.
+        /// </returns>
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             if (request.Headers.TryGetValues("X-Correlation-Id", out IEnumerable<string> headerEnumerable))
