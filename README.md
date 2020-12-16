@@ -20,13 +20,13 @@ Microsoft dot net core 3.1 sdk package/ dot net core runtime 3.1 version should 
 
 DB Setup:
 
-1. Database is configured using Entity Framework's Db first approach. User needs to create database using the script "HomeWorkToDos\DataScript\HomeWorkToDosScript.sql". 
-2. Update the connection string in appsettings.{Env}.json accordingly.
+Database is configured using Entity Framework's Db first approach. User needs to create database using the script "HomeWorkToDos\DataScript\HomeWorkToDosScript.sql". 
+Update the connection string in appsettings.{Env}.json accordingly.
 
     "ConnectionStrings": 
-	{
-		"Default": <updated-connection-string>
-	}
+		{
+			"Default": <update-connectionString>
+		}
 
 The database contains one user already registered; username=jyotsana, password=123
 
@@ -63,7 +63,7 @@ Copy the token and add an Authorization header in the Headers section to include
     	"Authorization": <copied token>
     }
 
-###Notes
+### Notes
 - A user has to create label first to assign it to todo list or todo item.
 - After that create todo list in order to add todo item.
 - Label can be assigned to todo list or todo item at the time of creation of list or item or while updating.
