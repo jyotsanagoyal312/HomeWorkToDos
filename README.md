@@ -21,6 +21,7 @@ Microsoft dot net core 3.1 sdk package/ dot net core runtime 3.1 version should 
 DB Setup:
 
 Database is configured using Entity Framework's Db first approach. User needs to create database using the script "HomeWorkToDos\DataScript\HomeWorkToDosScript.sql". 
+
 Update the connection string in appsettings.{Env}.json accordingly.
 
     "ConnectionStrings": 
