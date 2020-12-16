@@ -32,7 +32,9 @@ The database contains one user already registered; username=jyotsana, password=1
 
 ### Logging
 Logs are stored in HomeWorkToDos-{date}.txt file in the Logs folder in the executing directory.
+
 Logs CorrelationId along with all the logs within the request pipeline.
+
 Logs all request and response details (including message body).
 
 
